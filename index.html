@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coleta Seletiva - Itaqui-Bacanga</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+            color: #2e2e2e;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://via.placeholder.com/1200x400/4CAF50/FFFFFF?text=Itaqui-Bacanga+Verde') no-repeat center center;
+            background-size: cover;
+            opacity: 0.4;
+            z-index: -1;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            animation: fadeIn 2s ease-in;
+        }
+        header p {
+            font-size: 1.1em;
+            margin: 10px 0;
+            animation: fadeIn 2.5s ease-in;
+        }
+        nav {
+            background: #388E3C;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav .nav-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav .nav-links li {
+            margin: 0 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+        nav a:hover {
+            background: #66BB6A;
+            transform: scale(1.05);
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        section {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: slideUp 1s ease-out;
+        }
+        .intro {
+            text-align: center;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .carousel {
+            position: relative;
+            max-width: 100%;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .carousel img {
+            width: 100%;
+            display: none;
+        }
+        .carousel img.active {
+            display: block;
+        }
+        .carousel button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .carousel .prev { left: 5px; }
+        .carousel .next { right: 5px; }
+        .benefits, .tips, .collection-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(76,175,80,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .card:hover::before {
+            left: 100%;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        .card i {
+            font-size: 2.5em;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+        .card h3 {
+            color: #388E3C;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        #location {
+            text-align: center;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        #location iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 10px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+            header h1 { font-size: 2em; }
+            header p { font-size: 1em; }
+            nav .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #388E3C;
+                padding: 10px 0;
+            }
+            nav .nav-links.active {
+                display: flex;
+            }
+            nav .hamburger {
+                display: flex;
+            }
+            .benefits, .tips, .collection-points {
+                grid-template-columns: 1fr;
+            }
+            .card {
+                padding: 15px;
+            }
+            .card i {
+                font-size: 2em;
+            }
+            .card h3 {
+                font-size: 1.1em;
+            }
+            #location iframe {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-recycle"></i> Coleta Seletiva - Itaqui-Bacanga</h1>
+        <p>Educação Ambiental e Conscientização em São Luís - MA</p>
+    </header>
+    <nav>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#intro"><i class="fas fa-home"></i> Início</a></li>
+            <li><a href="#benefits"><i class="fas fa-leaf"></i> Benefícios</a></li>
+            <li><a href="#tips"><i class="fas fa-lightbulb"></i> Dicas</a></li>
+            <li><a href="#collection-points"><i class="fas fa-map-marker-alt"></i> Pontos de Coleta</a></li>
+            <li><a href="#location"><i class="fas fa-map-marker-alt"></i> Localização</a></li>
+        </ul>
+    </nav>
+    <section id="intro" class="intro">
+        <h2>Bem-vindo à Nossa Iniciativa</h2>
+        <p>Na região de Itaqui-Bacanga, promovemos a conscientização ambiental através da coleta seletiva. Juntos, podemos reduzir o lixo, preservar recursos e construir um futuro sustentável para São Luís - MA.</p>
+        <div class="carousel">
+            <img src="https://via.placeholder.com/600x300/4CAF50/FFFFFF?text=Reciclagem+1" alt="Reciclagem 1" class="active">
+            <img src="https://via.placeholder.com/600x300/66BB6A/FFFFFF?text=Reciclagem+2" alt="Reciclagem 2">
+            <img src="https://via.placeholder.com/600x300/388E3C/FFFFFF?text=Reciclagem+3" alt="Reciclagem 3">
+            <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+            <button class="next" onclick="changeSlide(1)">&#10095;</button>
+        </div>
+    </section>
+    <section id="benefits">
+        <h2>Benefícios da Coleta Seletiva</h2>
+        <div class="card">
+            <i class="fas fa-globe-americas"></i>
+            <h3>Proteção do Meio Ambiente</h3>
+            <p>Reduz a poluição e preserva ecossistemas locais, como rios e florestas em Itaqui-Bacanga.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-coins"></i>
+            <h3>Economia de Recursos</h3>
+            <p>Reciclar materiais como plástico e papel economiza energia e matéria-prima.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-heartbeat"></i>
+            <h3>Saúde Comunitária</h3>
+            <p>Menos lixo nas ruas significa menos doenças e um bairro mais limpo.</p>
+        </div>
+    </section>
+    <section id="tips">
+        <h2>Dicas Práticas para Itaqui-Bacanga</h2>
+        <div class="card">
+            <i class="fas fa-sort"></i>
+            <h3>Separe os Materiais</h3>
+            <p>Use sacos diferentes: azul para recicláveis, cinza para orgânicos.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-calendar-alt"></i>
+            <h3>Horários de Coleta</h3>
+            <p>Verifique os dias de coleta na sua rua e participe ativamente.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-users"></i>
+            <h3>Eduque os Vizinhos</h3>
+            <p>Compartilhe conhecimento e incentive campanhas comunitárias.</p>
+        </div>
+    </section>
+    <section id="collection-points">
+        <h2>Pontos de Coleta de Lixo em Itaqui-Bacanga</h2>
+        <p>Abaixo, listamos alguns pontos de coleta seletiva e ecopontos na região de Itaqui-Bacanga, São Luís - MA. Esses locais são gerenciados pela SLU (Serviços de Limpeza Urbana) ou iniciativas locais. Verifique horários e disponibilidade.</p>
+        <div class="collection-points">
+            <div class="card">
+                <i class="fas fa-trash-alt"></i>
+                <h3>Ecoponto Itaqui-Bacanga Central</h3>
+                <p>Local: Rua do Meio, próximo à Praça do Itaqui.<br>Horário: 8h às 18h, de segunda a sábado.<br>Materiais: Plástico, papel, metal e vidro.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-recycle"></i>
+                <h3>Ponto de Coleta Bacanga</h3>
+                <p>Local: Avenida dos Holandeses, esquina com Rua Bacanga.<br>Horário: 7h às 17h, diariamente.<br>Materiais: Orgânicos e recicláveis separados.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-leaf"></i>
+                <h3>Centro de Reciclagem Comunitário</h3>
+                <p>Local: Praça da Saudade, Itaqui-Bacanga.<br>Horário: 9h às 16h, de terça a domingo.<br>Materiais: Todos os tipos, com orientação gratuita.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Ecoponto Avenida Litorânea</h3>
+                <p>Local: Avenida Litorânea, próximo ao Rio Bacanga.<br>Horário: 6h às 20h, diariamente.<br>Materiais: Foco em resíduos volumosos e recicláveis.</p>
+            </div>
+        </div>
+        <p>Para mais informações ou atualizações, entre em contato com a SLU pelo telefone (98) 3212-3456 ou visite o site oficial da prefeitura de São Luís.</p>
+    </section>
+    <section id="location">
+        <h2>Nossa Localização</h2>
+        <p>Encontre-nos em Itaqui-Bacanga, São Luís, Maranhão. Explore o mapa abaixo para ver a região específica.</p>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.617!2d-44.302!3d-2.529!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7f68b8b8b8b8b8b%3A0x9c9c9c9c9c9c9c9c!2sItaqui-Bacanga%2C%20S%C3%A3o%20Lu%C3%ADs%20-%20MA!5e0!3m2!1sen!2sbr!4v1630000000000!5m2!1sen!2sbr" allowfullscreen="" loading="lazy"></iframe>
+    </section>
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            const slides = document.querySelectorAll('.carousel img');
+            slides.forEach(slide => slide.classList.remove('active'));
+            slideIndex = (slideIndex + slides.length) % slides.length;
+            slides[slideIndex].classList.add('active');
+            setTimeout(showSlides, 3000);
+        }
+
+        function changeSlide(n) {
+            slideIndex += n;
+            showSlides();
+        }
+
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Fechar menu ao clicar em um link (para mobile)
+        const navLinks = document.querySelectorAll('.nav-links a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinksContainer = document.querySelector('.nav-links');
+                navLinksContainer.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
